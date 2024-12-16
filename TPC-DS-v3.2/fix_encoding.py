@@ -1,5 +1,3 @@
-## Author: Seyyid Hikmet Celik
-
 import argparse
 import codecs
 

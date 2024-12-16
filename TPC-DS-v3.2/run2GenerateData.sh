@@ -12,6 +12,9 @@ mkdir -p ${data_path}
 cd tools/
 ./dsdgen -scale ${scale} -force -DIR ${data_path}
 
+cp -r tpcds.idx "${data_path}/" # save indexes
+cp -r tpcds.sql "${data_path}/" # save database schema
+
 cd ${data_path}
 for i in `ls *.dat`; do
   table=${i/.dat/}

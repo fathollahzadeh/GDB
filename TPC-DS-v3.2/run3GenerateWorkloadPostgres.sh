@@ -2,6 +2,7 @@
 
 scale=$1
 workload_path=$2
+streams=$3
 
 root_path="$(pwd)"
 template_path="${root_path}/QueryTemplatesPostgres"
@@ -11,8 +12,6 @@ mkdir -p ${workload_path}
 
 cd tools/
 
-# Agg Queries
-# agg_queries multi_block_queries spj_queries other_queries
 for qt in agg_queries multi_block_queries spj_queries other_queries
  do
     for q in {1..102}; do
@@ -28,7 +27,7 @@ for qt in agg_queries multi_block_queries spj_queries other_queries
             tmp_path="${workload_path}/tmp_${query_name}"
             mkdir ${tmp_path}
 
-            ./dsqgen -DIRECTORY "${template_path}/${qt}" -template "${query_name}${ext}" -VERBOSE Y -QUALIFY Y -SCALE ${scale} -DIALECT postgres -OUTPUT_DIR "${tmp_path}" -streams 5 
+            ./dsqgen -DIRECTORY "${template_path}/${qt}" -template "${query_name}${ext}" -VERBOSE Y -QUALIFY Y -SCALE ${scale} -DIALECT postgres -OUTPUT_DIR "${tmp_path}" -streams "$streams"
 
             mv ${tmp_path} ${wn}
                      
@@ -36,9 +35,3 @@ for qt in agg_queries multi_block_queries spj_queries other_queries
         done
     done
 done
-
-
-# for q in {1..99}; do		
-# 	./dsqgen -DIRECTORY "${tpcds_path}/query_templates" -template "query${q}.tpl" -VERBOSE Y -QUALIFY Y -SCALE ${scale} -DIALECT netezza -OUTPUT_DIR "${tpcds_workload}"
-#   mv "${tpcds_workload}/query_0.sql" "${tpcds_workload}/${q}.sql" 
-# done
