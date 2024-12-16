@@ -10,5 +10,5 @@ streams=$4
 ./run2GenerateData.sh $scale $data_path
 ./run3GenerateWorkloadPostgres.sh $scale $workload_path $streams
 
-
-# ./runAll.sh 1 data/ workload/ 10
+# Example:
+# ./runAll.sh 1 /tmp/data/ /tmp/workload/ 10
