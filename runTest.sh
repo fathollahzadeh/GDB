@@ -33,35 +33,58 @@ root=/home/saeed/Downloads/tmp/TPC-DS-S${scale}-S${streams}
 cd ..
 
 #---------------------------------------------------------------
-# Test 2.1: generate TPC-H w/ scale=1 
+## Test 2.1: generate TPC-H w/ scale=1 
 cd TPC-H
 scale=1
 root="/home/saeed/Downloads/tmp/TPC-H-S${scale}"
 ./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
 cd ..
 
-# Test 2.2: generate TPC-H w/ scale=10 
+## Test 2.2: generate TPC-H w/ scale=10 
 cd TPC-H
 scale=10
 root="/home/saeed/Downloads/tmp/TPC-H-S${scale}"
 ./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
 cd ..
 
-# Test 2.3: generate TPC-H w/ scale=50 
+## Test 2.3: generate TPC-H w/ scale=50 
 cd TPC-H
 scale=50
 root="/home/saeed/Downloads/tmp/TPC-H-S${scale}"
 ./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
 cd ..
 
-# Test 2.3: generate TPC-H w/ scale=50 
+## Test 2.3: generate TPC-H w/ scale=50 
 cd TPC-H
 scale=100
 root="/home/saeed/Downloads/tmp/TPC-H-S${scale}"
 ./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
 cd ..
 
-# Test 3: setup PostgreSQL 17.1
+# #----------------------------------------
+# ## Test 3.1: generate SSB w/ scale=1 
+cd SSB
+scale=1
+root="/home/saeed/Downloads/tmp/SSB-S${scale}"
+./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
+cd ..
+
+# ## Test 3.2: generate SSB w/ scale=10 
+cd SSB
+scale=10
+root="/home/saeed/Downloads/tmp/SSB-S${scale}"
+./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
+cd ..
+
+# ## Test 3.3: generate SSB w/ scale=100 
+cd SSB
+scale=100
+root="/home/saeed/Downloads/tmp/SSB-S${scale}"
+./runAll.sh ${scale} "${root}/data/" "${root}/workload/"
+cd ..
+
+# #----------------------------------------
+# ## Test 3: setup PostgreSQL 17.1
 # cd Install-Postgres-v17.1
 # setup_path=/home/saeed/Downloads/tmp/Baseline/
 # data_path=/home/saeed/Downloads/tmp/pgsqldata/
