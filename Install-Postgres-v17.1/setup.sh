@@ -37,7 +37,6 @@ source ~/.bashrc
 
 sudo groupadd -r postgres --gid=999 
 sudo useradd -r -g postgres --uid=999 --home-dir=${psql_data_path} --shell=/bin/bash postgres
-# mkdir -p ${psql_data_path}
 sudo chown -R postgres:postgres ${psql_data_path}
 sudo touch "${psql_setup_path}/passwd"
 sudo chmod -R 777 ${psql_setup_path}/passwd
@@ -48,10 +47,10 @@ ${psql_setup_path}/bin/initdb -D ${psql_data_path} --username="postgres" --pwfil
 echo "host all all all md5" >> "${psql_data_path}/pg_hba.conf"
 echo "listen_addresses = '*'" >> "${psql_data_path}/postgresql.conf"
 
-sed -i 's/max_wal_size = 1GB/max_wal_size = 100GB/g' "${psql_data_path}/postgresql.conf"
-sed -i 's/shared_buffers = 128MB/shared_buffers = 10GB/g' "${psql_data_path}/postgresql.conf"
+#sed -i 's/max_wal_size = 1GB/max_wal_size = 100GB/g' "${psql_data_path}/postgresql.conf"
+#sed -i 's/shared_buffers = 128MB/shared_buffers = 10GB/g' "${psql_data_path}/postgresql.conf"
 
-cpus="$(grep -c ^processor /proc/cpuinfo)"
+#cpus="$(grep -c ^processor /proc/cpuinfo)"
 echo "geqo = on" >> "${psql_data_path}/postgresql.conf"
-echo "max_parallel_workers = ${cpus}" >> "${psql_data_path}/postgresql.conf"
-echo "max_parallel_workers_per_gather = ${cpus}" >> "${psql_data_path}/postgresql.conf"
+#echo "max_parallel_workers = ${cpus}" >> "${psql_data_path}/postgresql.conf"
+#echo "max_parallel_workers_per_gather = ${cpus}" >> "${psql_data_path}/postgresql.conf"
