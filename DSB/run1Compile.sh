@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd tools/
+cd code/tools/
 if [ ! -f dsdgen ]; then
   make clean
-  make -f Makefile.suite
+  make
 fi

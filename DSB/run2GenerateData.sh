@@ -9,7 +9,7 @@ echo $data_path
 rm -rf ${data_path} 
 mkdir -p ${data_path}
 
-cd tools/
+cd code/tools/
 ./dsdgen -scale ${scale} -force -DIR ${data_path}
 
 cp -r tpcds.idx "${data_path}/" # save indexes
@@ -22,9 +22,9 @@ for i in `ls *.dat`; do
   tmp_tbl="${data_path}/${table}.tmp"
   sed 's/|$//' $i > ${tmp_tbl}
 
-  if [[ "$i" == "customer.dat" ]]; then
-    python3 ${root_path}/fix_encoding.py --filename="${tmp_tbl}"
-  fi
+  # if [[ "$i" == "customer.dat" ]]; then
+  #   python3 ${root_path}/fix_encoding.py --filename="${tmp_tbl}"
+  # fi
 
   rm -rf "${data_path}/${table}.dat"
   mv "${data_path}/${table}.tmp" "${data_path}/${table}.dat"

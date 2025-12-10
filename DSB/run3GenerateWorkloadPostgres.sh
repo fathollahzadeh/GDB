@@ -5,14 +5,14 @@ workload_path=$2
 streams=$3
 
 root_path="$(pwd)"
-template_path="${root_path}/QueryTemplatesPostgres"
+template_path="${root_path}/query_templates_pg"
 
 rm -rf ${workload_path}
 mkdir -p ${workload_path}
 
-cd tools/
-
-for qt in agg_queries multi_block_queries spj_queries other_queries
+cd code/tools/
+# 
+for qt in agg_queries multi_block_queries spj_queries
  do
     for q in {1..102}; do
       for ext in .tpl _spj.tpl
@@ -22,6 +22,7 @@ for qt in agg_queries multi_block_queries spj_queries other_queries
           if [ -f $query_fname ]; then
             wn="${ext/.tpl/""}"
             wn="${workload_path}/${query_name}${wn}"
+           
             rm -rf $wn
             
             tmp_path="${workload_path}/tmp_${query_name}"
@@ -29,7 +30,14 @@ for qt in agg_queries multi_block_queries spj_queries other_queries
 
             ./dsqgen -DIRECTORY "${template_path}/${qt}" -template "${query_name}${ext}" -VERBOSE Y -QUALIFY Y -SCALE ${scale} -DIALECT postgres -OUTPUT_DIR "${tmp_path}" -streams "$streams"
 
-            mv ${tmp_path} ${wn}
+            # echo ">>>>>>>>>>>>>>>>>>>>>.  ${tmp_path}"
+            #mv ${tmp_path} ${wn}
+
+            for str in $(seq 0 "$streams"); do
+              mv "${tmp_path}/query_${str}.sql" "${workload_path}/${qt}_${query_name}_${str}.sql"
+            done
+
+            rm -rf ${tmp_path}
                      
           fi
         done
